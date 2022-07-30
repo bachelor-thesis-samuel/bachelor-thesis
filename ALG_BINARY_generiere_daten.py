@@ -570,10 +570,10 @@ def main():
 # ###### Code ######
 
 
-agenten_amount_n = [50, 75]
-item_amount_m = [150, 300]
-liking_probabilities_p = [0.01, 0.02, 0.03]
-repetitions = 2
+agenten_amount_n = [50, 75, 100]
+item_amount_m = [300, 600]
+liking_probabilities_p = [0.01, 0.02, 0.03, 0.04, 0.05]
+repetitions = 3
 
 counter = 0
 for i in range(0, repetitions):
