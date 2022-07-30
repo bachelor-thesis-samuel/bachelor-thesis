@@ -513,9 +513,7 @@ def main():
 
     First, it creates a problem instance by initialising the preferences of all agents and providing an allocation.
 
-    Then, it prints a bunch of useful information regarding our instance. This can be used to backcheck the solution.
-
-    In part three, an envy-relation is computed in O(nm) by comparing the agents with each other.
+    Then, an envy-relation is computed in O(nm) by comparing the agents with each other.
     This relation is the edge set of our graph.
     With bfs from each agent, we solve the APSP problem.
     Each of these paths become evaluated and the best one is returned.
@@ -527,18 +525,8 @@ def main():
     preferences = create_agent_preferences(create_agents(agent_quantity))  # creates preferences
     allocation = random_allocation(preferences)  # calls allocation function
 
-    # ### PART TWO - PRINT INSTANCE INFORMATION ### #
-
-    # print("This is our problem information:")
-    # print_preferences(preferences)
-    # print("This is the allocation:", allocation)
-    # print("The agents possess these items:", find_possession(allocation))
-
     all_agents_envies = calculate_item_envy_relations(preferences, allocation)
-
-    # print("These are the envy-relations:", all_agents_envies)
     shortened_envy_relation = shorten_envy_list(all_agents_envies)
-    # print("This is the shortened_envy_relation", shortened_envy_relation, "\nBegin solving the instance...\n\n\n\n")
 
     # ### PART THREE - SOLVE INSTANCE ### #
 
@@ -552,7 +540,7 @@ def main():
         apsp_matrix = solve_APSP(shortened_envy_relation)  # solve APSP
         best_path = find_path(apsp_matrix, allocation)
 
-        if not best_path:  # if the best path is empty, aka we have found the optimal allocation
+        if not best_path:  # if the best path is empty, we have found the optimal allocation
 
             maximalzeit = round(runtime(agent_quantity, item_quantity))
             f = open("myfile.txt", "a")
@@ -582,19 +570,19 @@ def main():
 # ###### Code ######
 
 
-agenten_amount_n = [50, 75, 100]
-item_amount_m = [300, 600]
-liking_probabilites_p = [0.01, 0.02, 0.03, 0.04, 0.05, 0.06, 0.07, 0.08, 0.09, 0.1, 0.11, 0.12, 0.13, 0.14, 0.15]
-repetitions = 3
+agenten_amount_n = [50, 75]
+item_amount_m = [150, 300]
+liking_probabilities_p = [0.01, 0.02, 0.03]
+repetitions = 2
 
 counter = 0
 for i in range(0, repetitions):
 
-    for agent in agenten_amount:
+    for agent in agenten_amount_n:
 
-        for item in item_amount:
+        for item in item_amount_m:
 
-            for p_value in liking_probabilites_p:
+            for p_value in liking_probabilities_p:
 
                 agent_quantity = agent          # n value that we will use
                 item_quantity = item            # m value that we will use
@@ -608,6 +596,7 @@ for i in range(0, repetitions):
                 f = open("counter.txt", "a")    # this file contains the number of instances solved
                 x = str(counter)
                 f.write(x)
+                f.write("\n")
                 f.close()
 
 f = open("fertig.txt", "a")
